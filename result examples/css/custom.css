@@ -1,0 +1,55 @@
+/* 
+
+CUSTOM STYLESHEET
+
+Add your custom styles here instead of style.css so it is easier to 
+update the template. Simply copy an existing style from style.css to 
+this file, and modify it to your liking. 
+
+*/
+.text-overflow {  
+    display:block;/*内联对象需加*/  
+    width:31em;  
+    word-break:keep-all;/* 不换行 */  
+    white-space:nowrap;/* 不换行 */  
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */  
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/  
+}
+.secDataTable h3{
+	text-decoration:underline;
+}
+#queryBtn{
+	position: absolute;
+	right: 0px;
+	cursor: pointer;
+	border: 2px solid #5D9ADF;
+	border-left: 0px;
+	color: #666;
+	float: right;
+	line-height: 18px;
+	margin: 10px 0 0;
+	padding: 4px 24px 4px 4px;
+	vertical-align: middle;
+	width: 34px;
+	background: white url("../img/search.gif") no-repeat 99% 56%;
+	-moz-box-shadow: 0 0;
+	-webkit-box-shadow: 0 0;
+	box-shadow: 0 0;
+}
+.plotLineCheck{
+	//margin-left: 70%;
+}
+.plotLineCheck .inner{
+	float:right;
+}
+#searchGeoInfo{
+	border:1px dashed #999;
+	padding-left:4px;
+}
+#page .ipItem{
+	cursor:pointer;
+	border-bottom:0px;
+}
+#page .ipItem:hover{
+	border-bottom:0px;
+}

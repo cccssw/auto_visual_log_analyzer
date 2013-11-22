@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<title>2012/7/28 20:04 Http日志审计报告</title>
+	<!-- Main Stylesheet --> 
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<!-- Your Custom Stylesheet --> 
+	<link rel="stylesheet" href="css/custom.css" type="text/css" />
+	<!--swfobject - needed only if you require <video> tag support for older browsers -->
+	<script type="text/javascript" SRC="js/swfobject.js"></script>
+	<!-- jQuery with plugins -->
+	<script type="text/javascript" SRC="js/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" SRC="js/jquery.ui.core.min.js"></script>
+	<script type="text/javascript" SRC="js/jquery.ui.widget.min.js"></script>
+	<script type="text/javascript" SRC="js/jquery.ui.tabs.min.js"></script>
+	<!-- jQuery tooltips -->
+	<script type="text/javascript" SRC="js/jquery.tipTip.min.js"></script>
+	<!-- Superfish navigation -->
+	<script type="text/javascript" SRC="js/jquery.superfish.min.js"></script>
+	<script type="text/javascript" SRC="js/jquery.supersubs.min.js"></script>
+	<!-- jQuery form validation -->
+	<script type="text/javascript" SRC="js/jquery.validate_pack.js"></script>
+	<!-- jQuery popup box -->
+	<script type="text/javascript" SRC="js/jquery.nyroModal.pack.js"></script>
+	<!-- jQuery Data tables -->
+	<script type="text/javascript" SRC="js/jquery.DataTables.min.js"></script>
+	<!-- jQuery graph plugins -->
+	<script type="text/javascript" SRC="js/jquery.sparkline.min.js"></script>
+	<!--[if IE]><script type="text/javascript" src="js/flot/excanvas.min.js"></script><![endif]-->
+	<script type="text/javascript" SRC="js/flot/jquery.flot.min.js"></script>
+	<script type="text/javascript" SRC="js/flot/jquery.flot.selection.min.js"></script>
+	<script type="text/javascript" SRC="js/flot/jquery.flot.pie.min.js"></script>
+	<!-- Internet Explorer Fixes --> 
+	<!--[if IE]>
+	<link rel="stylesheet" type="text/css" media="all" href="css/ie.css"/>
+	<script src="js/html5.js"></script>
+	<![endif]-->
+	<!--Upgrade MSIE5.5-7 to be compatible with MSIE8: http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE8.js -->
+	<!--[if lt IE 8]>
+	<script src="js/IE8.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		/* setup navigation, content boxes, etc... */
+		Administry.setup();
+		
+		/* datatable */
+		$('#example').dataTable();
+		
+		/* expandable rows */
+		Administry.expandableRows();
+	});
+
+	</script>
+</head>
+<body>
+<div style="display:none" id="hideData">
+	<p><b>日志文件来源:&nbsp;&nbsp;</b><span><a href="#"></a></span></p>
+	<p><b>原始日志大小:&nbsp;&nbsp;</b><span><a href="#"></a></span></p>
+</div>
+	<!-- Header -->
+	<header id="top">
+		<div class="wrapper">
+			<!-- Title/Logo - can use text instead of image -->
+			<div id="title">
+				<img SRC="img/logo.png" alt="Administry" />
+				<span>2012/7/28 20:04 Http日志审计报告</span>
+			</div>
+			<!-- Top navigation -->
+			<div id="topnav">
+				
+				<small><b>报告生成时间:</b><a href="#" class="high">2012/7/2820:04</a></small><br />
+				<span><b>日志类型:</b></span><a href="#">WEB日志</a><br />
+			</div>
+			<!-- End of Top navigation -->
+			<!-- Main navigation -->
+			<nav id="menu">
+				<ul class="sf-menu">
+					<li>
+<a href='#statisticsBlock'>
+数据统计部分
+</a>
+<ul>
+<li>
+<a href='#normalStatistics'>
+常规统计
+</a>
+
+</li>
+<li>
+<a href='#safeStatistics'>
+安全审计统计
+</a>
+
+</li>
+</ul>
+</li>
+<li>
+<a href='#safeBlock'>
+威胁详情部分
+</a>
+<ul>
+<li>
+<a href='#safeAll'>
+威胁总览
+</a>
+
+</li>
+<li>
+<a href='#sqlInject'>
+SQL注入威胁
+</a>
+
+</li>
+<li>
+<a href='#xss'>
+XSS跨站脚本威胁
+</a>
+
+</li>
+<li>
+<a href='#dbhack'>
+暴库下载威胁
+</a>
+
+</li>
+<li>
+<a href='#webshell'>
+WebShell访问记录
+</a>
+
+</li>
+<li>
+<a href='#siteProbe'>
+路径猜测威胁
+</a>
+
+</li>
+<li>
+<a href='#dos'>
+Dos威胁的时间频率图
+</a>
+
+</li>
+</ul>
+</li>
+<li>
+<a href='#geo'>
+地理信息
+</a>
+
+</li>
+	
+				</ul>
+			</nav>
+			<!-- End of Main navigation -->
+			<!-- Aside links -->
+			<!--<aside><b>简体中文</b> &middot; <a href="#">English</a> &middot; <a href="#">繁体中文</a></aside>-->
+			<aside><b>审计数据关联分析系统</b></aside>
+			<!-- End of Aside links -->
+		</div>
+	</header>
+	<!-- End of Header -->
+	<!-- Page title -->
+	<div id="pagetitle">
+		<div class="wrapper">
+			<h1 id="BigTitle">报告内容</h1>
+			<!-- Quick search box -->
+			<form action="" method="get">
+				<input class="inputBox" type="text" id="query" name="q" />
+				<input class="inputBtn" type="button" id="queryBtn" name="qs" value=" " />
+			</form>
+		</div>
+	</div>
+	<!-- End of Page title -->
+	
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+				<!-- Left column/section -->
+				<section class="column width6 first">
+					&nbsp;					
+					<div class='secDataTable'>
+<h3 class='secDataTable' id='statisticsBlock'>
+数据统计部分
+</h3>
+<div class='secDataTableContent'>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='normalStatistics'>
+常规统计
+</h4>
+<div class='secDataTableContent'>
+<div class='colgroup'>
+<div class='column width3 first'>
+<h5>
+PV/UV
+</h5>
+<hr/>
+<table class='no-style full'>
+<tbody>
+<tr><td>审计的总PV</td><td class='ta-right'>1659</td></tr><tr><td>审计的总UV</td><td class='ta-right'>1</td></tr></tbody>
+</table>
+</div>
+<div class='column width3'>
+<h5>
+状态码统计
+</h5>
+<hr/>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.coolID35JsBindData=[{"label":"code2","data":"826"},{"label":"code3","data":"39"},{"label":"code4","data":"563"},{"label":"code5","data":"231"}];
+/*]]>*/
+</script>
+<div id='coolID35' class='dataBind' data='coolID35JsBindData' dataType='piePlot'>
+</div>
+</div>
+</div>
+<div class='colgroup'>
+<div class='column width3 first'>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='recvSend'>
+PV/IP统计
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.coolID33JsData=[{"label":"PV","data":[["1314036000000","62"],["1314039600000","120"],["1314043200000","81"],["1314046800000","87"],["1314057600000","501"],["1314061200000","99"],["1314064800000","95"],["1314072000000","27"],["1314075600000","6"],["1314079200000","168"],["1314082800000","152"],["1314086400000","73"],["1314090000000","120"],["1314093600000","58"],["1314104400000","10"]]},{"label":"UV","data":[["1314036000000","1"],["1314039600000","1"],["1314043200000","1"],["1314046800000","1"],["1314057600000","1"],["1314061200000","1"],["1314064800000","1"],["1314072000000","1"],["1314075600000","1"],["1314079200000","1"],["1314082800000","1"],["1314086400000","1"],["1314090000000","1"],["1314093600000","1"],["1314104400000","1"]]}];
+/*]]>*/
+</script>
+<div id='coolID33' class='myPlot' data='coolID33JsData' dataType='pvipv'>
+</div>
+<input class='btn ZoomOutBtn' style='display:none' type='button' name='yt22' value='缩小' />
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+</div>
+<div class='column width3'>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='recvSend'>
+Http状态码统计
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.coolID34JsData=[{"label":"code4","data":[["1314036000000","31"],["1314039600000","1"],["1314043200000","2"],["1314046800000","11"],["1314057600000","52"],["1314061200000","80"],["1314064800000","47"],["1314072000000","12"],["1314075600000","3"],["1314079200000","93"],["1314082800000","108"],["1314086400000","51"],["1314090000000","53"],["1314093600000","15"],["1314104400000","4"]]},{"label":"code2","data":[["1314036000000","30"],["1314039600000","1"],["1314046800000","76"],["1314057600000","447"],["1314061200000","16"],["1314064800000","46"],["1314072000000","13"],["1314075600000","2"],["1314079200000","69"],["1314082800000","37"],["1314086400000","21"],["1314090000000","38"],["1314093600000","25"],["1314104400000","5"]]},{"label":"code5","data":[["1314036000000","1"],["1314039600000","118"],["1314043200000","79"],["1314057600000","2"],["1314064800000","2"],["1314082800000","2"],["1314090000000","22"],["1314093600000","5"]]},{"label":"code3","data":[["1314061200000","3"],["1314072000000","2"],["1314075600000","1"],["1314079200000","6"],["1314082800000","5"],["1314086400000","1"],["1314090000000","7"],["1314093600000","13"],["1314104400000","1"]]}];
+/*]]>*/
+</script>
+<div id='coolID34' class='myPlot' data='coolID34JsData' dataType='StatusCode'>
+</div>
+<input class='btn ZoomOutBtn' style='display:none' type='button' name='yt23' value='缩小' />
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='safeStatistics'>
+安全审计统计
+</h4>
+<div class='secDataTableContent'>
+<div class='colgroup'>
+<div class='column width3 first'>
+<h5>
+可疑安全事件总数:<b>865</b>
+</h5>
+<hr/>
+<table class='no-style full'>
+<tbody>
+<tr><td>SQL注入威胁的PV</td><td class='ta-right'>0</td></tr><tr><td>SQL注入威胁的UV</td><td class='ta-right'>0</td></tr><tr><td>XSS威胁的PV</td><td class='ta-right'>0</td></tr><tr><td>XSS威胁的UV</td><td class='ta-right'>0</td></tr><tr><td>暴库下载的PV</td><td class='ta-right'>0</td></tr><tr><td>暴库下载的UV</td><td class='ta-right'>0</td></tr></tbody>
+</table>
+</div>
+<div class='column width3'>
+<h5>
+发现的威胁IP数量:<b>1</b>
+</h5>
+<hr/>
+<table class='no-style full'>
+<tbody>
+<tr><td>路径猜测的PV</td><td class='ta-right'>0</td></tr><tr><td>路径猜测的UV</td><td class='ta-right'>0</td></tr><tr><td>DOS威胁的PV</td><td class='ta-right'>865</td></tr><tr><td>DOS威胁的UV</td><td class='ta-right'>1</td></tr><tr><td>WebShell威胁的PV</td><td class='ta-right'>0</td></tr><tr><td>WebShell威胁的UV</td><td class='ta-right'>0</td></tr></tbody>
+</table>
+</div>
+</div>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h3 class='secDataTable' id='safeBlock'>
+威胁详情部分
+</h3>
+<div class='secDataTableContent'>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='safeAll'>
+威胁总览
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID52JsArray=[["127.0.0.1","DOS威胁<b style='display:none'>dos</b>","2011/8/232:26","/B2C/jsp/admin/admins_list_add.jsp","",""]];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID52JsArray' id='tableID52'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+威胁类型
+</th>
+<th>
+时间
+</th>
+<th>
+URL
+</th>
+<th>
+操作系统
+</th>
+<th>
+浏览器
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+威胁类型
+</th>
+<th>
+时间
+</th>
+<th>
+URL
+</th>
+<th>
+操作系统
+</th>
+<th>
+浏览器
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='sqlInject'>
+SQL注入威胁
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID54JsArray=[];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID54JsArray' id='tableID54'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='xss'>
+XSS跨站脚本威胁
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID55JsArray=[];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID55JsArray' id='tableID55'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='dbhack'>
+暴库下载威胁
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID56JsArray=[];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID56JsArray' id='tableID56'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='webshell'>
+WebShell访问记录
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID57JsArray=[];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID57JsArray' dataType='webshell' id='tableID57'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+URL
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+URL
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='siteProbe'>
+路径猜测威胁
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID58JsArray=[];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID58JsArray' id='tableID58'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+时间
+</th>
+<th>
+原始记录
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h4 class='secDataTable' id='dos'>
+Dos威胁的时间频率图
+</h4>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.coolID36JsData=[{"label":"127.0.0.1","data":[["1314036000000","30"],["1314039600000","1"],["1314046800000","76"],["1314057600000","447"],["1314061200000","19"],["1314064800000","46"],["1314072000000","15"],["1314075600000","3"],["1314079200000","75"],["1314082800000","42"],["1314086400000","22"],["1314090000000","45"],["1314093600000","38"],["1314104400000","6"]]}];
+/*]]>*/
+</script>
+<div id='coolID36' class='myPlot' data='coolID36JsData' dataType='httpDos'>
+</div>
+<input class='btn ZoomOutBtn' style='display:none' type='button' name='yt24' value='缩小' />
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+<div class='secDataTable'>
+<h3 class='secDataTable' id='geo'>
+地理信息
+</h3>
+<div class='secDataTableContent'>
+<script type="text/javascript">
+/*<![CDATA[*/
+window.tableID53JsArray=[["127.0.0.1","","","","","<a href='http://maps.googleapis.com/maps/api/staticmap?center=,&zoom=13&size=400x400&sensor=false' target='_blank'><img src='http://maps.googleapis.com/maps/api/staticmap?center=,&amp;zoom=12&amp;size=50x50&amp;sensor=false' alt='' />\r\n</a>"]];
+/*]]>*/
+</script>
+<table class='pureTable display stylized' data='tableID53JsArray' id='tableID53'>
+<thead>
+<tr>
+<th>
+IP
+</th>
+<th>
+国
+</th>
+<th>
+省
+</th>
+<th>
+市
+</th>
+<th>
+详情
+</th>
+<th>
+地图
+</th>
+</tr>
+
+</thead>
+<tbody />
+<tfoot>
+<tr>
+<th>
+IP
+</th>
+<th>
+国
+</th>
+<th>
+省
+</th>
+<th>
+市
+</th>
+<th>
+详情
+</th>
+<th>
+地图
+</th>
+</tr>
+
+</tfoot>
+</table>
+
+</div>
+<div class='clear'>
+&nbsp;
+</div>
+</div>
+
+					
+				</section>
+				<!-- End of Left column/section -->
+				
+				<!-- Right column/section -->
+				<aside class="column width2">
+				<div id="rightSec" class="width2">
+					<div class="content-box">
+						<header>
+							<h3>工具箱</h3>
+						</header>
+						<section>
+							<p><b><a onClick="window.print()" href="#" title="可以在Chrome中选择目标为’打印为PDF‘，保存为PDF文档！">打印本报告</a></b><span></span></p>
+							<!--<p><b>审计日志文件数:&nbsp;&nbsp;</b><span><a href="#Http">{rightStaticsFNum}</a></span></p>-->
+							<p><b>IP地理信息查询:&nbsp;&nbsp;</b></p>							
+							<p>
+							<input type="text"/>
+							<span>&nbsp;&nbsp;<a title="多个IP地址可以用半角逗号隔开批量查询" id="toSearchGeo" href="#" onClick="javascript:void(0);">查询</a></span>
+							</p>
+							<div id="searchGeoInfo">
+								<div id="gloading" style="display:none">
+									<img src='./img/nyro/ajaxLoader.gif' />&nbsp;&nbsp;<span>载入中...</span>
+								</div>
+								<div id="geoResult">
+								</div>
+							</div>
+						</section>
+					</div>
+					<div id="rightmenu"  class="width2">
+						<header>
+							<h3>导航</h3>
+						</header>
+						<dl class="first">
+							<dt><img width="16" height="16" alt="Basic styles" src="img/style.png"></dt>
+							<dd><a href="javascript:CloseAll();">关闭</a>/<a href="javascript:OpenAll();">打开</a>&nbsp;所有报告项</dd>
+							<dd class="last">&nbsp;</dd>							
+							<dt><img width="16" height="16" alt="" SRC="img/book.png"></dt>
+							<dd>报告项</dd>
+							<dd class="last">
+							<ul>
+							<li>
+<a href='#statisticsBlock'>
+数据统计部分
+</a>
+<ul>
+<li>
+<a href='#normalStatistics'>
+常规统计
+</a>
+
+</li>
+<li>
+<a href='#safeStatistics'>
+安全审计统计
+</a>
+
+</li>
+</ul>
+</li>
+<li>
+<a href='#safeBlock'>
+威胁详情部分
+</a>
+<ul>
+<li>
+<a href='#safeAll'>
+威胁总览
+</a>
+
+</li>
+<li>
+<a href='#sqlInject'>
+SQL注入威胁
+</a>
+
+</li>
+<li>
+<a href='#xss'>
+XSS跨站脚本威胁
+</a>
+
+</li>
+<li>
+<a href='#dbhack'>
+暴库下载威胁
+</a>
+
+</li>
+<li>
+<a href='#webshell'>
+WebShell访问记录
+</a>
+
+</li>
+<li>
+<a href='#siteProbe'>
+路径猜测威胁
+</a>
+
+</li>
+<li>
+<a href='#dos'>
+Dos威胁的时间频率图
+</a>
+
+</li>
+</ul>
+</li>
+<li>
+<a href='#geo'>
+地理信息
+</a>
+
+</li>
+
+							</ul>
+							</dd>							
+						</dl>
+					</div>
+				</div>
+				</aside>
+				<!-- End of Right column/section -->
+				
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<!-- End of Page content -->
+	
+	<!-- Page footer -->
+	<footer id="bottom">
+		<div class="wrapper">
+			<nav>
+				<a href="help.html">帮助</a> &middot;
+				<a href="define.html">数据说明</a> &middot;
+				<a href="questions.html">FQ</a> &middot;
+				<a href="tips.html">审计技巧</a> &middot;
+			</nav>
+			<p>Copyright &copy; 2012 <b><a href="#" title="审计数据关联分析系统">审计数据关联分析系统</a></b> | by <a href="#">SecVisual</a></p>
+		</div>
+	</footer>
+	<!-- End of Page footer -->
+	
+	<!-- Animated footer -->
+	<footer id="animated">
+		<ul>
+			<li>
+<a href='#normalStatistics'>
+常规统计
+</a>
+
+</li>
+<li>
+<a href='#safeStatistics'>
+安全审计统计
+</a>
+
+</li>
+<li>
+<a href='#safeAll'>
+威胁总览
+</a>
+
+</li>
+<li>
+<a href='#sqlInject'>
+SQL注入威胁
+</a>
+
+</li>
+<li>
+<a href='#xss'>
+XSS跨站脚本威胁
+</a>
+
+</li>
+<li>
+<a href='#dbhack'>
+暴库下载威胁
+</a>
+
+</li>
+<li>
+<a href='#webshell'>
+WebShell访问记录
+</a>
+
+</li>
+<li>
+<a href='#siteProbe'>
+路径猜测威胁
+</a>
+
+</li>
+<li>
+<a href='#dos'>
+Dos威胁的时间频率图
+</a>
+
+</li>
+
+		</ul>
+	</footer>
+	<!-- End of Animated footer -->
+	
+	<!-- Scroll to top link -->
+	<a href="#" id="totop">^ 返回顶部</a>
+
+<!-- User interface javascript load -->
+<script type="text/javascript" SRC="js/administry.js"></script>
+</body>
+</html>
